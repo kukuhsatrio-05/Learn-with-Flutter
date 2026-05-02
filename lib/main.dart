@@ -71,7 +71,7 @@ class MyApp extends StatelessWidget {
                       CategoriesBox(
                         desc: 'Vegetables',
                         imageUrl:
-                            'https://i0.wp.com/resepkoki.id/wp-content/uploads/2018/03/sayur-mayur-Cropped-1.jpg?fit=500%2C500&ssl=1',
+                            'https://www.astronauts.id/blog/wp-content/uploads/2023/08/Jenis-Oat-Untuk-Diet-Yang-Mudah-Murah-dan-Sehat-1024x678.jpg',
                       ),
                     ],
                   ),
@@ -97,6 +97,10 @@ class MyApp extends StatelessWidget {
                       child: ProductItem(
                         title: 'Berries',
                         description: 'Lorem ipsum dolor sit amet, consectetur.',
+                        rate: 4.9,
+                        reviews: 789,
+                        imgUrl:
+                            'https://post.healthline.com/wp-content/uploads/2021/07/berries-1296x728-header.jpg',
                       ),
                     ),
 
@@ -105,8 +109,12 @@ class MyApp extends StatelessWidget {
                     SizedBox(
                       width: 150,
                       child: ProductItem(
-                        title: 'Tulsi',
+                        title: 'Parsley',
                         description: 'Lorem ipsum dolor sit amet, consectetur.',
+                        rate: 4.9,
+                        reviews: 898,
+                        imgUrl:
+                            'https://s3.ap-southeast-1.amazonaws.com/s.kalimoni-greens.com/curly-parsleyjtgbnp9b.webp',
                       ),
                     ),
                   ],
@@ -119,6 +127,10 @@ class MyApp extends StatelessWidget {
                       child: ProductItem(
                         title: 'Sweet Potatoes',
                         description: 'Lorem ipsum dolor sit amet, consectetur.',
+                        rate: 4.9,
+                        reviews: 788,
+                        imgUrl:
+                            'https://www.ipb.ac.id/wp-content/uploads/2025/07/Mengapa-Ubi-Cilembu-Lebih-Manis-Saat-Dipanggang-Ini-Penjelasan-Dosen-IPB-University.jpg',
                       ),
                     ),
 
@@ -129,6 +141,10 @@ class MyApp extends StatelessWidget {
                       child: ProductItem(
                         title: 'Melon',
                         description: 'Lorem ipsum dolor sit amet, consectetur.',
+                        rate: 4.9,
+                        reviews: 667,
+                        imgUrl:
+                            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvZuvYEaoHm0ReVVzWFslfTHwN25MC8CLIZA&s',
                       ),
                     ),
                   ],
@@ -142,21 +158,107 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class Carousel extends StatelessWidget {
+class Carousel extends StatefulWidget {
   final double height;
   final double width;
 
   const Carousel({super.key, required this.height, required this.width});
 
   @override
+  State<Carousel> createState() => _CarouselState();
+}
+
+class _CarouselState extends State<Carousel> {
+  final PageController _controller = PageController();
+  int _currentPage = 0;
+
+  final List<String> images = [
+    'https://img.freepik.com/free-photo/composition-fresh-vegetables-blurred-vegetable-garden-background_169016-40138.jpg?semt=ais_hybrid&w=740&q=80',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyhs9cxIY8xlVGu2pm2344w5M3wPvqpYWv0w&s',
+    'https://i0.wp.com/post.healthline.com/wp-content/uploads/2021/09/Jillian-Kubala-after-farm-1296x728-body1.jpg?w=1155&h=1528',
+    'https://buffalohealthyliving.com/wp-content/uploads/photo-WestSideTilth.jpg',
+  ];
+
+  @override
   Widget build(BuildContext context) {
-    return Container(
-      height: height,
-      width: width,
-      decoration: BoxDecoration(
-        color: Colors.grey[300],
-        borderRadius: BorderRadius.circular(30),
-      ),
+    return Column(
+      children: [
+        SizedBox(
+          height: widget.height,
+          width: widget.width,
+          child: PageView.builder(
+            controller: _controller,
+            onPageChanged: (index) {
+              setState(() {
+                _currentPage = index;
+              });
+            },
+            itemCount: images.length,
+            itemBuilder: (context, index) {
+              return Container(
+                margin: const EdgeInsets.symmetric(horizontal: 5),
+                decoration: BoxDecoration(
+                  color: Colors.grey[300],
+                  borderRadius: BorderRadius.circular(30),
+                  image: DecorationImage(
+                    image: NetworkImage(images[index]),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+        const SizedBox(height: 10),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 300),
+              margin: const EdgeInsets.symmetric(horizontal: 4),
+              height: 8,
+              width: _currentPage == 0 ? 20 : 8,
+              decoration: BoxDecoration(
+                color: _currentPage == 0 ? Colors.green : Colors.grey[300],
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 300),
+              margin: const EdgeInsets.symmetric(horizontal: 4),
+              height: 8,
+              width: _currentPage == 1 ? 20 : 8,
+              decoration: BoxDecoration(
+                color: _currentPage == 1 ? Colors.green : Colors.grey[300],
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 300),
+              margin: const EdgeInsets.symmetric(horizontal: 4),
+              height: 8,
+              width: _currentPage == 2 ? 20 : 8,
+              decoration: BoxDecoration(
+                color: _currentPage == 2 ? Colors.green : Colors.grey[300],
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 300),
+              margin: const EdgeInsets.symmetric(horizontal: 4),
+              height: 8,
+              width: _currentPage == 3 ? 20 : 8,
+              decoration: BoxDecoration(
+                color: _currentPage == 3 ? Colors.green : Colors.grey[300],
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }
@@ -164,11 +266,17 @@ class Carousel extends StatelessWidget {
 class ProductItem extends StatefulWidget {
   final String title;
   final String description;
+  final String imgUrl;
+  final double rate;
+  final int reviews;
 
   const ProductItem({
     super.key,
     required this.title,
     required this.description,
+    required this.imgUrl,
+    required this.rate,
+    required this.reviews,
   });
 
   @override
@@ -180,40 +288,222 @@ class _ProductItemState extends State<ProductItem> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Carousel(height: 150, width: double.infinity),
-        const SizedBox(height: 10),
-
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ProductDetailPage(
+              title: widget.title,
+              imageUrl: widget.imgUrl,
+              rating: widget.rate,
+              reviewCount: widget.reviews,
+              description: widget.description,
+            ),
+          ),
+        );
+      },
+      child: Container(
+        color: Colors.transparent,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Stack(
+              children: [
+                Container(
+                  height: 160,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[200],
+                    borderRadius: BorderRadius.circular(15),
+                    image: DecorationImage(
+                      image: NetworkImage(widget.imgUrl),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                Positioned(
+                  top: 5,
+                  right: 5,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.black.withValues(alpha: 0.3),
+                      shape: BoxShape.circle,
+                    ),
+                    child: IconButton(
+                      padding: EdgeInsets.zero,
+                      constraints: const BoxConstraints(),
+                      onPressed: () {
+                        setState(() {
+                          isFavorite = !isFavorite;
+                        });
+                      },
+                      icon: Icon(
+                        isFavorite ? Icons.favorite : Icons.favorite_border,
+                        color: isFavorite ? Colors.red : Colors.white,
+                        size: 20,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 10),
+
             Text(
               widget.title,
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
-            IconButton(
-              onPressed: () {
-                setState(() {
-                  isFavorite = !isFavorite;
-                });
-              },
-              icon: Icon(
-                isFavorite ? Icons.favorite : Icons.favorite_border,
-                color: isFavorite ? Colors.red : Colors.grey,
+            const SizedBox(height: 4),
+
+            Row(
+              children: [
+                const Icon(Icons.star, color: Colors.amber, size: 16),
+                const SizedBox(width: 4),
+                Text(
+                  widget.rate.toString(),
+                  style: const TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                const SizedBox(width: 4),
+                Text(
+                  '(${widget.reviews})',
+                  style: const TextStyle(fontSize: 12, color: Colors.grey),
+                ),
+              ],
+            ),
+            const SizedBox(height: 6),
+
+            Text(
+              widget.description,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(fontSize: 12, color: Colors.grey),
+            ),
+            const SizedBox(height: 15),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class ProductDetailPage extends StatelessWidget {
+  final String title;
+  final String imageUrl;
+  final double rating;
+  final int reviewCount;
+  final String description;
+
+  const ProductDetailPage({
+    super.key,
+    required this.title,
+    required this.imageUrl,
+    required this.rating,
+    required this.reviewCount,
+    required this.description,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Stack(
+              children: [
+                Container(
+                  height: 350,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: NetworkImage(imageUrl),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                SafeArea(
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: CircleAvatar(
+                      backgroundColor: Colors.white.withValues(alpha: 0.5),
+                      child: IconButton(
+                        icon: const Icon(Icons.arrow_back, color: Colors.black),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                      ),
+                    ),
+                  ),
+                ),
+
+                Positioned(
+                  top: 10,
+                  right: 10,
+                  child: SafeArea(
+                    child: CircleAvatar(
+                      backgroundColor: Colors.white.withValues(alpha: 0.5),
+                      child: Icon(Icons.favorite_border, color: Colors.black),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        title,
+                        style: const TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Row(
+                        children: [
+                          const Icon(Icons.star, color: Colors.amber, size: 20),
+                          const SizedBox(width: 5),
+                          Text(
+                            '$rating ($reviewCount)',
+                            style: const TextStyle(
+                              fontSize: 14,
+                              color: Colors.grey,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+
+                  const Text(
+                    'Description',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    description,
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: Colors.black87,
+                      height: 1.5,
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
         ),
-
-        const SizedBox(height: 5),
-        Text(
-          widget.description,
-          style: const TextStyle(fontSize: 12, color: Colors.grey),
-        ),
-        const SizedBox(height: 20),
-      ],
+      ),
     );
   }
 }
