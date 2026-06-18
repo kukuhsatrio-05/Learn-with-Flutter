@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_workshop/widgets_ui/product_detail.dart';
+import 'package:flutter_app_workshop/widgets/product_detail.dart';
 import 'package:flutter_app_workshop/view_model/providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
